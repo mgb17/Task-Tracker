@@ -1,20 +1,61 @@
 <template>
 <div class="container">
-  <Header />
+  <Header title="Task Tracker" />
+  <Tasks @delete-task="deleteTask" 
+          :tasks="tasks" />
 </div>
+
   
 </template>
 
 <script>
 
 import Header from './components/Header'
+import Tasks from './components/Tasks'
+
 
 export default {
   name: 'App',
   components: { 
-    Header 
+    Header,
+    Tasks 
   },
+  data() {
+    return {
+      tasks: []
+    }
+  },
+  methods: {
+    deleteTask(id) {
+      if(confirm ('are you sure to delete?')) {
+      this.tasks = this.tasks.filter((task) => task.id !==id )
+      }
+    },
+  },
+  created() {
+    this.tasks = [
+      {
+        id: 1,
+        text: 'Appoinment',
+        day: '25th March',
+        reminder: true,
+      },
+      {
+        id: 2,
+        text: 'Party',
+        day: '26th March',
+        reminder: false,
+      },
+      {
+        id: 3,
+        text: 'Exam',
+        day: '27th March',
+        reminder: true,
+      }
+    ]
+  }
 }
+
 </script>
 
 <style>
@@ -33,12 +74,12 @@ body {
   overflow: auto;
   min-height: 300px;
   border: 1px solid steelblue;
-  padding: 30px;
+  padding: 50px;
   border-radius: 5px;
 }
 .btn {
   display: inline-block;
-  background: #000;
+  background: #aa1;
   color: #fff;
   border: none;
   padding: 10px 20px;
